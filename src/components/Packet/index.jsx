@@ -49,14 +49,6 @@ const Packet = (props) => {
               {menuPaket.length > 0 &&
                 menuPaket.map((item) => (
                   <div className="md:col-4 mb-5" key={item._id}>
-                    {/* <div className="img-container -ml-20">
-                    <img src="/assets/amanbg.png" alt="" />
-                    <img
-                      src="/assets/aman.png"
-                      className="-mt-40 ml-36"
-                      alt=""
-                    />
-                  </div> */}
                     <motion.div
                       whileHover={{ scale: 1.1 }}
                       className="card rounded-2xl px-5 py-3 space-y-3 pb-6 pt-5 shadow-lg"
@@ -64,7 +56,7 @@ const Packet = (props) => {
                         backgroundImage: `linear-gradient(66.12deg, rgba(255, 255, 255, 0.9) 54.63%, rgba(0, 188, 241, 0.9) 112.85%), url(${item.image})`,
                         backgroundPosition: "10% 70%",
                         backgroundRepeat: "no-repeat",
-                        backgroundSize: "400px",
+                        backgroundSize: "600px",
                       }}
                     >
                       <div className="ribbon float-right -mr-6">
