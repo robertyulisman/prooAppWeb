@@ -1,8 +1,22 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Features = () => {
+  const idPage = "feature";
+  const landingData = useSelector((state) => state.landingPage.data);
+
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    if (landingData.length !== 0) {
+      const dataFilter = landingData?.konten?.find(
+        (item) => item.key.toLowerCase() === idPage.toLowerCase()
+      );
+      setData(dataFilter);
+    }
+  }, [landingData]);
   return (
-    <div className="-mt-20 md:-mt-26" id="feature">
+    <div className="-mt-20 md:-mt-26" id={idPage}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#1f2d3d"
@@ -12,80 +26,27 @@ const Features = () => {
       </svg>
       <div className="bg-[#1f2d3d] text-white pb-32 md:-mt-20">
         <div className="header-text text-center md:-mt-6 -mt-2 space-y-3">
-          <p className="font-black text-2xl">Fitur Proo</p>
-          <p className="font-regular text-xl">
-            Selain memberikan layanan Guru Privat. <br />
-            Proo memiliki fitur lainnya.
-          </p>
+          <p className="font-black text-2xl">{data?.title}</p>
+          <p className="font-regular text-xl">{data?.subtitle}</p>
         </div>
         <div className="body-content mt-10">
           <div className="container">
             <div className="md:row space-y-3 md:space-y-0">
-              <div className="col">
-                <center>
-                  <div className="bg-gradient-to-bl from-[#FFC164] to-[#FED867DE] py-16 space-y-5 px-10 my-auto rounded-md">
-                    <div className="content items-start">
-                      <img src="/assets/bimbel.png" className="h-16" alt="" />
-                      <p className="text-xl font-bold mt-6">Proo Bimbel</p>
+              {data?.item.map((item) => (
+                <div key={item.title} className="col">
+                  <center>
+                    <div className="bg-gradient-to-bl from-[#FFC164] to-[#FED867DE] py-16 space-y-5 px-10 my-auto rounded-md">
+                      <div className="content items-start">
+                        <img src={item.image} className="h-16" alt="" />
+                        <p className="text-xl font-bold mt-6">{item.title}</p>
+                      </div>
+                      <div className="text-desc">
+                        <p className="text-center">{item.subtitle}</p>
+                      </div>
                     </div>
-                    <div className="text-desc">
-                      <p className="text-center">
-                        Sebagai layanan Guru Privat kekinian. Tentunya Proo
-                        punya fitur yang Proo juga untuk membantu belajar.
-                      </p>
-                    </div>
-                  </div>
-                </center>
-              </div>
-              <div className="col">
-                <center>
-                  <div className="bg-gradient-to-bl from-[#FFC164] to-[#FED867DE] py-16 space-y-5 px-10 my-auto rounded-md">
-                    <div className="content items-start">
-                      <img src="/assets/bahasa.png" className="h-16" alt="" />
-                      <p className="text-xl font-bold mt-6">Proo Bahasa</p>
-                    </div>
-                    <div className="text-desc">
-                      <p className="text-center">
-                        Sebagai layanan belajar privat. Proo menyediakan bimbel
-                        bahasa untuk menambah kemampuan berbahasa.
-                      </p>
-                    </div>
-                  </div>
-                </center>
-              </div>
-
-              <div className="col">
-                <center>
-                  <div className="bg-gradient-to-bl from-[#FFC164] to-[#FED867DE] py-16 space-y-5 px-10 my-auto rounded-md">
-                    <div className="content items-start">
-                      <img src="/assets/e-quran.png" className="h-16" alt="" />
-                      <p className="text-xl font-bold mt-6">Proo e-Qur'an</p>
-                    </div>
-                    <div className="text-desc">
-                      <p className="text-center">
-                        Sebagai layanan mengaji privat. Proo menyediakan
-                        Al-Qur’an digital untuk fitur penunjangnya.
-                      </p>
-                    </div>
-                  </div>
-                </center>
-              </div>
-              <div className="col">
-                <center>
-                  <div className="bg-gradient-to-bl from-[#FFC164] to-[#FED867DE] py-16 space-y-5 px-10 my-auto rounded-md">
-                    <div className="content items-start">
-                      <img src="/assets/mengaji.png" className="h-16" alt="" />
-                      <p className="text-xl font-bold mt-6">Proo Mengaji</p>
-                    </div>
-                    <div className="text-desc">
-                      <p className="text-center">
-                        Untuk membantu pembelajaran Al-Qur’an. Proo menyediakan
-                        layanan ngaji privat Al-Qur’an.
-                      </p>
-                    </div>
-                  </div>
-                </center>
-              </div>
+                  </center>
+                </div>
+              ))}
             </div>
           </div>
         </div>

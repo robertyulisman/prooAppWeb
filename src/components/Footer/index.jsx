@@ -1,25 +1,23 @@
-import React, { Fragment, useState } from "react";
-import { Transition, Dialog } from "@headlessui/react";
-import getMobileOS from "../../utils/checkOS";
+import React from "react";
 import "../../utils/data";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 const Footer = () => {
+  const idPage = "footer";
+  const landingData = useSelector((state) => state.landingPage.data);
+
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    if (landingData.length !== 0) {
+      const dataFilter = landingData?.konten?.find(
+        (item) => item.key.toLowerCase() === idPage.toLowerCase()
+      );
+      setData(dataFilter);
+    }
+  }, [landingData]);
   const navigation = useNavigate();
-  let [isOpen, setIsOpen] = useState(false);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   const handlePrivacy = () => {
     navigation("/privacy_policy");
@@ -38,25 +36,31 @@ const Footer = () => {
           <div className="container">
             <div className="row  text-center md:text-left">
               <div className="col space-y-5">
-                <p className="text-2xl font-bold">Presented by Proo Team</p>
+                <p className="text-2xl font-bold">{data?.title}</p>
                 <div className="desc">
-                  <p className="">
-                    Proo Apps menyediakan berbagai layanan private belajar
-                    dengan sistem Guru yang datang ke rumah murid. Mulai dari
-                    Calistung, Mengaji, hingga Bahasa Asing.
-                  </p>
+                  <p className="">{data?.subtitle}</p>
                 </div>
                 <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start md:-ml-3">
                   <img
+                    className="hover:cursor-pointer h-14"
                     src="/assets/ps.png"
-                    onClick={() => getMobileOS()}
-                    className="h-14"
+                    onClick={() =>
+                      window.open(
+                        "https://play.google.com/store/apps/details?id=com.asia_proo_teknologi",
+                        "_blank"
+                      )
+                    }
                     alt=""
                   />
                   <img
                     src="/assets/is.png"
-                    onClick={() => getMobileOS()}
-                    className="h-14"
+                    onClick={() =>
+                      window.open(
+                        "https://apps.apple.com/id/app/proo/id1610920974?l=id",
+                        "_blank"
+                      )
+                    }
+                    className="hover:cursor-pointer h-14"
                     alt=""
                   />
                 </div>

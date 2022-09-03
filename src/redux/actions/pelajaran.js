@@ -1,9 +1,10 @@
 import axios from "axios";
+import { baseUrl } from "../../service/api";
 import { GET_PELAJARAN } from "./types";
 
 export const getPelajaran = () => (dispatch) => {
   axios
-    .get("https://admin.proo.co.id/api/pelajaran")
+    .get(`${baseUrl}/api/pelajaran`)
     .then((res) => {
       console.log("Success Pelajaran :", res.data);
       dispatch({

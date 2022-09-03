@@ -1,6 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
+  const { proo } = useSelector((state) => state.landingPage);
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    if (proo.length !== 0) {
+      setData(proo);
+    }
+  }, [proo]);
   return (
     <div className="contact-wrapper mt-16" id="contact">
       <div className="card-headers mb-5 text-center">
@@ -13,24 +22,40 @@ const Contact = () => {
       <div className="card-body">
         <div className="container flex flex-col justify-center p-4 lg:-mt-12 lg:px-28 mx-auto sm:py-12 lg:py-16 lg:flex-row lg:justify-between">
           <div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
-            <p className="text-2xl font-extrabold leading-none sm:text-2xl">
+            <p className="text-2xl font-extrabold leading-none sm:text-2xl mb-8 ml-4">
               Alamat Lengkap
             </p>
-            <p className="mt-3 mb-8 text-xl sm:mb-12">
-              Rumah Tahfidz Ar-Rayyan Sadai, Bengkong, <br /> Batam, Indonesia
-            </p>
-            <div className="detail-address flex flex-col space-y-7">
+
+            <div className="detail-address flex flex-col space-y-4">
               <span className="flex flex-row">
-                <img className="mr-5" src="assets/pin2.png" alt="" />
-                <p className="mt-2">Bengkong Nusantara 2 Blok D No 8</p>
+                <div className="w-16  h-16">
+                  <img
+                    className="w-8  h-auto m-auto"
+                    src="assets/pin2.png"
+                    alt=""
+                  />
+                </div>
+                <p className="w-full">{data?.alamat}</p>
               </span>
               <span className="flex flex-row">
-                <img className="mr-5 w-9" src="assets/message.png" alt="" />
-                <p className="mt-2">admin@proo.co.id</p>
+                <div className="w-16  h-16">
+                  <img
+                    className="w-8  h-auto m-auto"
+                    src="assets/message.png"
+                    alt=""
+                  />
+                </div>
+                <p className="w-full">{data?.email}</p>
               </span>
               <span className="flex flex-row">
-                <img className="mr-5 w-10" src="assets/info.png" alt="" />
-                <p className="mt-2">www.proo.co.id</p>
+                <div className="w-16  h-16">
+                  <img
+                    className="w-8  h-auto m-auto"
+                    src="assets/info.png"
+                    alt=""
+                  />
+                </div>
+                <p className="w-full">{data?.web}</p>
               </span>
             </div>
           </div>

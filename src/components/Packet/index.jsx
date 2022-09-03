@@ -10,21 +10,35 @@ const Packet = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const menuPaket = useSelector((state) => state.paket.data);
-  console.log("menuPaket", menuPaket);
+
+  const idPage = "product";
+  const landingData = useSelector((state) => state.landingPage.data);
+
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    if (landingData.length !== 0) {
+      const dataFilter = landingData?.konten?.find(
+        (item) => item.key.toLowerCase() === idPage.toLowerCase()
+      );
+      setData(dataFilter);
+    }
+  }, [landingData]);
+
   React.useEffect(() => {
     dispatch(getPaket());
   }, []);
 
   if (!menuPaket || menuPaket.length === 0)
     return (
-      <div className="text-center font-bold text-lg my-64" id="product">
+      <div className="text-center font-bold text-lg my-64" id={idPage}>
         <i className="fas fa-spinner fa-2xl mb-10 fa-spin"></i>
         <p>Paket Sedang Proses Loading !</p>
       </div>
     );
 
   return (
-    <div className="-mt-20 md:-mt-52" id="product">
+    <div className="-mt-20 md:-mt-52" id={idPage}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path
           fill="#f0f2f9"
@@ -37,11 +51,8 @@ const Packet = (props) => {
           className="header-text text-center md:-mt-6 -mt-2 space-y-3"
           id="product"
         >
-          <p className="font-black text-2xl">Pilihan Paket Proo</p>
-          <p className="font-regular text-xl">
-            Pilih paket pembelajaran <br />
-            yang sesuai denganmu
-          </p>
+          <p className="font-black text-2xl">{data?.title}</p>
+          <p className="font-regular text-xl">{data?.subtitle}</p>
         </div>
         <div className="body-content mt-10">
           <div className="container px-5">

@@ -13,8 +13,8 @@ function App() {
       <div className="bg-[#F0F2F9]">
         <Provider store={store}>
           <Routing />
+          <ChatMe />
         </Provider>
-        <ChatMe />
       </div>
     </>
   );

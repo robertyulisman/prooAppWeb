@@ -1,10 +1,23 @@
 import React from "react";
 import "./ChatMe.css";
 import "../../utils/data";
-import { data } from "../../utils/data";
+import formatNumber from "../../utils/formatNumber";
+import { useSelector } from "react-redux";
 
 function ChatMe() {
-  var linkwa = "https://api.whatsapp.com/send?phone=" + data.no_wa;
+  const { proo } = useSelector((state) => state.landingPage);
+  const [dataProo, setDataProo] = React.useState(null);
+
+  const linkwa = `https://api.whatsapp.com/send?phone=${formatNumber(
+    dataProo?.noWaAdmin || ""
+  )}`;
+
+  React.useEffect(() => {
+    if (proo.length !== 0) {
+      setDataProo(proo);
+    }
+  }, [proo]);
+
   return (
     <div className="flex flex-row">
       <a
@@ -14,7 +27,7 @@ function ChatMe() {
       >
         <i className="fab fa-whatsapp my-float my-auto wa-icon bounce-fx"></i>{" "}
         <p className="text-base my-auto font-bold hidden md:block">
-          Contact Us !
+          Hubungi Kami !
         </p>
       </a>
     </div>

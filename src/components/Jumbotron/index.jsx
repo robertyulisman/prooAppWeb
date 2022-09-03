@@ -1,58 +1,44 @@
 import React from "react";
-import getMobileOS from "../../utils/checkOS";
+import { useSelector } from "react-redux";
 
 const Jumbotron = () => {
+  const idPage = "home";
+  const landingData = useSelector((state) => state.landingPage.data);
+
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    if (landingData.length !== 0) {
+      const dataFilter = landingData?.konten?.find(
+        (item) => item.key.toLowerCase() === idPage.toLowerCase()
+      );
+      setData(dataFilter);
+    }
+  }, [landingData]);
+
   return (
-    <section className="bg-[#F0F2F9] " id="home">
+    <section className="bg-[#F0F2F9] " id={idPage}>
       <div className="flex flex-col justify-center p-4 lg:-mt-12 lg:px-28 mx-auto sm:py-12 lg:py-16 lg:flex-row lg:justify-between">
         <div className="flex flex-col justify-center p-6 text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
           <p className="text-3xl font-extrabold text-[#1B252F] leading-none sm:text-3xl">
-            Proo - Cari Guru Privatmu !
+            {data?.title}
           </p>
           <p className="mt-6 mb-8 text-[#1B252F] text-xl sm:mb-12">
-            Platform penyedia layanan guru privat, <br />
-            Guru datang langsung ke rumah.
+            {data?.subtitle}
           </p>
           <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
-            {/* <a
-              className="px-8 py-3 text-lg font-bold rounded bg-green-500 text-white hover:cursor-pointer"
-              onClick={() => getMobileOS()}
-            >
-              Coba Sekarang
-            </a> */}
             <a
               href="https://www.youtube.com/watch?v=nL87m6dqd-Q"
-              className="px-10 py-4 text-lg font-bold rounded-2xl bg-green-500 text-white hover:cursor-pointer space-x-3"
+              className="px-10 py-4 text-lg font-bold rounded-2xl bg-green-500 hover:opacity-80 text-white hover:cursor-pointer space-x-3"
             >
               <i className="fas fa-play"></i> <span>Lihat Demo</span>
             </a>
-            {/* <a
-              href="#"
-              className="py-3 text-lg font-semibold text-green-500 space-x-4"
-            >
-              <i className="fas fa-play"></i>{" "}
-              <span>
-                <a href="https://www.youtube.com/watch?v=nL87m6dqd-Q">
-                  Lihat Demo
-                </a>
-              </span>
-            </a> */}
           </div>
-          {/* <hr className="mt-5" />
-          <div className="download mt-5">
-            <p className="text-center mb-5 font-bold text-[#1B252F]">
-              Download sekarang !
-            </p>
-            <div className="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start md:-ml-3">
-              <img src="/assets/ps.png" alt="" onClick={() => getMobileOS()} />
-              <img src="/assets/is.png" alt="" onClick={() => getMobileOS()} />
-            </div>
-          </div> */}
         </div>
         <div className="flex items-center justify-center p-6 mt-8 lg:mt-0  sm:-mt-15">
           <img
-            src="/assets/header.png"
-            alt=""
+            src={data?.image}
+            alt="Proo"
             className="object-contain h-full  sm:-mt-15"
           />
         </div>
